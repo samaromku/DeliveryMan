@@ -12,7 +12,8 @@ import ru.savchenko.andrey.deliveryman.di.ComponentManager;
  */
 @InjectViewState
 public class ActualPresenter extends MvpPresenter<ActualView> {
-    @Inject ActualInteractor interactor;
+    @Inject
+    ActualInteractor interactor;
 
     public void init(){
         ComponentManager.getActualComponent().inject(this);
