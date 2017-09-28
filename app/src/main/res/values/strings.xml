@@ -10,4 +10,12 @@
     <string name="current_orders">Текущие заказы</string>
     <string name="delivered_orders">Доставленные заказы</string>
     <string name="reviews">Отзывы</string>
+    <string name="name">Имя:</string>
+    <string name="post">Должность:</string>
+    <string name="made_per_day">Выполено за день:</string>
+    <string name="on_hands">На руках:</string>
+    <string name="middle_time">Среднее время доставки:</string>
+    <string name="status">Статус:</string>
+    <string name="photo">Аватар</string>
+    <string name="edit">Редактировать</string>
 </resources>

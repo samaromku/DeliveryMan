@@ -17,6 +17,7 @@ import ru.savchenko.andrey.deliveryman.R;
 import ru.savchenko.andrey.deliveryman.base.BaseActivity;
 import ru.savchenko.andrey.deliveryman.base.BaseFragment;
 import ru.savchenko.andrey.deliveryman.fragments.actual.ActualFragment;
+import ru.savchenko.andrey.deliveryman.fragments.profile.ProfileFragment;
 import ru.savchenko.andrey.deliveryman.interfaces.OnChangeTitle;
 
 public class DeliveryDrawerActivity extends BaseActivity
@@ -81,6 +82,9 @@ public class DeliveryDrawerActivity extends BaseActivity
         switch (item.getItemId()){
             case R.id.nav_actual:
                 openFragment(new ActualFragment());
+                return closeDrawer(true);
+            case R.id.nav_profile:
+                openFragment(new ProfileFragment());
                 return closeDrawer(true);
             default:
                 return closeDrawer(true);
