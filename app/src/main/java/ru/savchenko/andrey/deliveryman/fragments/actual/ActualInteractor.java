@@ -10,7 +10,5 @@ import ru.savchenko.andrey.deliveryman.entities.Order;
  */
 
 public interface ActualInteractor {
-    ActualInteractor interactor();
-
     Observable<List<Order>> ordersList();
 }

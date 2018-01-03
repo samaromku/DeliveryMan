@@ -9,16 +9,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.arellomobile.mvp.presenter.InjectPresenter;
-
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import ru.savchenko.andrey.deliveryman.App;
 import ru.savchenko.andrey.deliveryman.R;
 import ru.savchenko.andrey.deliveryman.adapters.ActualAdapter;
 import ru.savchenko.andrey.deliveryman.base.BaseFragment;
 import ru.savchenko.andrey.deliveryman.entities.Order;
+import ru.savchenko.andrey.deliveryman.fragments.actual.di.ActualComponent;
+import ru.savchenko.andrey.deliveryman.fragments.actual.di.ActualModule;
 import ru.savchenko.andrey.deliveryman.interfaces.OnItemClickListener;
 
 import static android.content.ContentValues.TAG;
@@ -28,7 +31,7 @@ import static android.content.ContentValues.TAG;
  */
 
 public class ActualFragment extends BaseFragment implements ActualView, OnItemClickListener{
-    @InjectPresenter ActualPresenter presenter;
+    @Inject ActualPresenter presenter;
     @BindView(R.id.rvActual)RecyclerView rvActual;
     private ActualAdapter adapter = new ActualAdapter();
 
@@ -41,11 +44,17 @@ public class ActualFragment extends BaseFragment implements ActualView, OnItemCl
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        ((ActualComponent) App.getComponentManager()
+                .getPresenterComponent(getClass(), new ActualModule(this))).inject(this);
         ButterKnife.bind(this, view);
-        presenter.init();
         presenter.setOrders();
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        App.getComponentManager().releaseComponent(getClass());
+    }
 
     @Override
     public void setOrdersList(List<Order> ordersList) {

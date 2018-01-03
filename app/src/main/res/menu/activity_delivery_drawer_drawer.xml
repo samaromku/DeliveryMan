@@ -26,5 +26,4 @@
             android:icon="@drawable/exit"
             android:title="@string/exit" />
     </group>
-
 </menu>

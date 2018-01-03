@@ -11,10 +11,17 @@ import ru.savchenko.andrey.deliveryman.di.ComponentManager;
  */
 
 public class App extends Application {
+    private static ComponentManager componentManager;
+
+    public static ComponentManager getComponentManager() {
+        return componentManager;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
-        ComponentManager.init();
+        componentManager = new ComponentManager();
+        componentManager.init();
         JodaTimeAndroid.init(this);
     }
 }

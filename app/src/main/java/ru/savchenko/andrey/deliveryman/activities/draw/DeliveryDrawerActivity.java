@@ -1,5 +1,6 @@
 package ru.savchenko.andrey.deliveryman.activities.draw;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
@@ -11,31 +12,45 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import javax.inject.Inject;
+
+import ru.savchenko.andrey.deliveryman.App;
 import ru.savchenko.andrey.deliveryman.R;
+import ru.savchenko.andrey.deliveryman.activities.draw.di.MainComponent;
+import ru.savchenko.andrey.deliveryman.activities.draw.di.MainModule;
+import ru.savchenko.andrey.deliveryman.activities.neworder.NewOrderActivity;
 import ru.savchenko.andrey.deliveryman.base.BaseActivity;
 import ru.savchenko.andrey.deliveryman.base.BaseFragment;
 import ru.savchenko.andrey.deliveryman.fragments.actual.ActualFragment;
 import ru.savchenko.andrey.deliveryman.fragments.profile.ProfileFragment;
 import ru.savchenko.andrey.deliveryman.interfaces.OnChangeTitle;
+import ru.savchenko.andrey.deliveryman.network.DeliveryNetworkService;
 
 public class DeliveryDrawerActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnChangeTitle {
+    @Inject
+    DeliveryNetworkService deliveryNetworkService;
 
+    public static final String TAG = DeliveryDrawerActivity.class.getSimpleName();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_delivery_drawer);
+        ((MainComponent) App.getComponentManager()
+                .getPresenterComponent(getClass(), new MainModule())).inject(this);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
+        drawer.addDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        onNavigationItemSelected(navigationView.getMenu().findItem(R.id.nav_profile));
     }
 
     @Override
@@ -63,7 +78,8 @@ public class DeliveryDrawerActivity extends BaseActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.nav_new_order) {
+            startActivity(new Intent(this, NewOrderActivity.class));
             return true;
         }
 

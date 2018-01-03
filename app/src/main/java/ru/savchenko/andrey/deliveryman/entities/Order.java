@@ -1,6 +1,8 @@
 package ru.savchenko.andrey.deliveryman.entities;
 
-import org.joda.time.DateTime;
+import com.google.gson.annotations.SerializedName;
+
+import java.util.Date;
 
 /**
  * Created by Andrey on 09.09.2017.
@@ -8,10 +10,14 @@ import org.joda.time.DateTime;
 
 public class Order {
     private int id;
+    @SerializedName("title")
     private String title;
+    @SerializedName("description")
     private String body;
-    private DateTime created;
-    private DateTime deadLine;
+    @SerializedName("address")
+    private String address;
+    private Date created;
+    private Date deadLine;
     private double way;
     private int status;
     private int rating;
@@ -68,19 +74,19 @@ public class Order {
         this.body = body;
     }
 
-    public DateTime getCreated() {
+    public Date getCreated() {
         return created;
     }
 
-    public void setCreated(DateTime created) {
+    public void setCreated(Date created) {
         this.created = created;
     }
 
-    public DateTime getDeadLine() {
+    public Date getDeadLine() {
         return deadLine;
     }
 
-    public void setDeadLine(DateTime deadLine) {
+    public void setDeadLine(Date deadLine) {
         this.deadLine = deadLine;
     }
 
@@ -120,8 +126,8 @@ public class Order {
         private int id;
         private String title;
         private String body;
-        private DateTime created;
-        private DateTime deadLine;
+        private Date created;
+        private Date deadLine;
         private double way;
         private int status;
         private int rating;
@@ -145,12 +151,12 @@ public class Order {
             return this;
         }
 
-        public Builder created(DateTime val) {
+        public Builder created(Date val) {
             created = val;
             return this;
         }
 
-        public Builder deadLine(DateTime val) {
+        public Builder deadLine(Date val) {
             deadLine = val;
             return this;
         }
@@ -180,7 +186,7 @@ public class Order {
         }
     }
 
-    public Order(int id, String title, String body, DateTime created, DateTime deadLine, double way) {
+    public Order(int id, String title, String body, Date created, Date deadLine, double way) {
         this.id = id;
         this.title = title;
         this.body = body;
@@ -189,7 +195,16 @@ public class Order {
         this.way = way;
     }
 
-    public Order(int id, String title, String body, DateTime created, DateTime deadLine, double way, String url) {
+    public Order(int id, String title, String body, String address, Date created, Date deadLine) {
+        this.id = id;
+        this.title = title;
+        this.body = body;
+        this.address = address;
+        this.created = created;
+        this.deadLine = deadLine;
+    }
+
+    public Order(int id, String title, String body, Date created, Date deadLine, double way, String url) {
         this.id = id;
         this.title = title;
         this.body = body;
