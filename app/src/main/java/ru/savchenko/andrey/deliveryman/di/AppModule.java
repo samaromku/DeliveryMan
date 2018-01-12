@@ -20,6 +20,8 @@ import ru.savchenko.andrey.deliveryman.activities.draw.di.MainComponent;
 import ru.savchenko.andrey.deliveryman.activities.neworder.NewOrderActivity;
 import ru.savchenko.andrey.deliveryman.activities.neworder.di.NewOrderComponent;
 import ru.savchenko.andrey.deliveryman.di.base.ComponentBuilder;
+import ru.savchenko.andrey.deliveryman.dialogs.oneorder.OneOrderDialog;
+import ru.savchenko.andrey.deliveryman.dialogs.oneorder.di.OneOrderComponent;
 import ru.savchenko.andrey.deliveryman.fragments.actual.ActualFragment;
 import ru.savchenko.andrey.deliveryman.fragments.actual.di.ActualComponent;
 import ru.savchenko.andrey.deliveryman.network.DeliveryNetworkService;
@@ -31,6 +33,7 @@ import ru.savchenko.andrey.deliveryman.network.DeliveryNetworkService;
     MainComponent.class,
     ActualComponent.class,
     NewOrderComponent.class,
+    OneOrderComponent.class,
 })
 class AppModule {
     private static final String DATE_PATTERN = "yyyy-MM-dd'T'HH:mm:ss";
@@ -40,6 +43,13 @@ class AppModule {
     @IntoMap
     @ClassKey(DeliveryDrawerActivity.class)
     ComponentBuilder provideMain(MainComponent.Builder builder){
+        return builder;
+    }
+
+    @Provides
+    @IntoMap
+    @ClassKey(OneOrderDialog.class)
+    ComponentBuilder provideOneOrder(OneOrderComponent.Builder builder){
         return builder;
     }
 
