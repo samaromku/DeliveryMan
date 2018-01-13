@@ -1,4 +1,4 @@
-package ru.savchenko.andrey.deliveryman.fragments.actual;
+package ru.savchenko.andrey.deliveryman.fragments.delivered;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -7,13 +7,10 @@ import java.util.List;
 import io.reactivex.Observable;
 import ru.savchenko.andrey.deliveryman.entities.Order;
 
-/**
- * Created by Andrey on 25.09.2017.
- */
-public class ActualInteractorImpl implements ActualInteractor{
+public class DeliveredInterActor {
+    private static final String TAG = DeliveredInterActor.class.getSimpleName();
 
-    @Override
-    public Observable<List<Order>>ordersList(){
+    Observable<List<Order>> getListFroAdapter() {
         List<Order>orders = new ArrayList<>();
         orders.add(new Order(1, "test", "Пицца с креветками", new Date(), new Date(), 10));
         orders.add(new Order(1, "test", "Суши терияки и удон", new Date(1504959792456L), new Date(), 5));
@@ -27,8 +24,8 @@ public class ActualInteractorImpl implements ActualInteractor{
         orders.add(new Order(1, "test", "Картофель фри с лососем", new Date(1504959792112L), new Date(), 10));
         for(Order order:orders){
             order.setAddress("Новороссийская 123, кв. 12");
-            order.setStatus(1);
+            order.setStatus(2);
         }
-        return Observable.just(orders);
+        return Observable.fromCallable(() -> orders);
     }
 }

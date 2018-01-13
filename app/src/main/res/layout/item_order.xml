@@ -12,9 +12,9 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include
-            android:id="@+id/card_view_title"
-            layout="@layout/linear_name_value" />
+        <!--<include-->
+            <!--android:id="@+id/card_view_title"-->
+            <!--layout="@layout/linear_name_value" />-->
 
         <include
             android:id="@+id/card_view_body"
@@ -40,9 +40,9 @@
             android:id="@+id/card_view_status"
             layout="@layout/linear_name_value" />
 
-        <include
-            android:id="@+id/card_view_rating"
-            layout="@layout/linear_name_value" />
+        <!--<include-->
+            <!--android:id="@+id/card_view_rating"-->
+            <!--layout="@layout/linear_name_value" />-->
 
     </LinearLayout>
 

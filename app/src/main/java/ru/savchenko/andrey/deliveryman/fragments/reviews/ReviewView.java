@@ -1,10 +1,9 @@
 package ru.savchenko.andrey.deliveryman.fragments.reviews;
 
-import ru.savchenko.andrey.deliveryman.base.mvp.BaseView;
+import java.util.List;
 
-/**
- * Created by Andrey on 25.09.2017.
- */
+import ru.savchenko.andrey.deliveryman.entities.Review;
 
-public interface ReviewView extends BaseView {
+public interface ReviewView {
+    void setListToAdapter(List<Review> listToAdapter);
 }

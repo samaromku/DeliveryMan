@@ -1,10 +1,9 @@
 package ru.savchenko.andrey.deliveryman.fragments.delivered;
 
-import ru.savchenko.andrey.deliveryman.base.mvp.BaseView;
+import java.util.List;
 
-/**
- * Created by Andrey on 25.09.2017.
- */
+import ru.savchenko.andrey.deliveryman.entities.Order;
 
-public interface DeliveredView extends BaseView {
+public interface DeliveredView {
+    void setListToAdapter(List<Order> listToAdapter);
 }

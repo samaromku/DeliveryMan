@@ -151,15 +151,15 @@ public class Order {
         this.deadLine = deadLine;
     }
 
-    public Order(int id, String title, String body, Date created, Date deadLine, double way, String url) {
-        this.id = id;
-        this.title = title;
-        this.body = body;
-        this.created = created;
-        this.deadLine = deadLine;
-        this.way = way;
-        this.url = url;
-    }
+//    public Order(int id, String title, String body, Date created, Date deadLine, double way, String url) {
+//        this.id = id;
+//        this.title = title;
+//        this.body = body;
+//        this.created = created;
+//        this.deadLine = deadLine;
+//        this.way = way;
+//        this.url = url;
+//    }
 
     public static final class Builder {
         private int id;

@@ -50,6 +50,7 @@ public class ActualFragment extends BaseFragment implements ActualView, OnItemCl
                 .getPresenterComponent(getClass(), new ActualModule(this))).inject(this);
         ButterKnife.bind(this, view);
         presenter.setOrders();
+        setToolbarTitle("Текущие");
     }
 
     @Override

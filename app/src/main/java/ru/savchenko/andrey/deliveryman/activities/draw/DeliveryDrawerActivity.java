@@ -1,8 +1,10 @@
 package ru.savchenko.andrey.deliveryman.activities.draw;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.annotation.StringRes;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -25,7 +27,9 @@ import ru.savchenko.andrey.deliveryman.activities.neworder.NewOrderActivity;
 import ru.savchenko.andrey.deliveryman.base.BaseActivity;
 import ru.savchenko.andrey.deliveryman.base.BaseFragment;
 import ru.savchenko.andrey.deliveryman.fragments.actual.ActualFragment;
+import ru.savchenko.andrey.deliveryman.fragments.delivered.DeliveredFragment;
 import ru.savchenko.andrey.deliveryman.fragments.profile.ProfileFragment;
+import ru.savchenko.andrey.deliveryman.fragments.reviews.ReviewFragment;
 import ru.savchenko.andrey.deliveryman.interfaces.OnChangeTitle;
 import ru.savchenko.andrey.deliveryman.network.DeliveryNetworkService;
 
@@ -94,18 +98,28 @@ public class DeliveryDrawerActivity extends BaseActivity
         return super.onOptionsItemSelected(item);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.nav_actual:
                 openFragment(new ActualFragment());
-                return closeDrawer(true);
+                return closeDrawer();
             case R.id.nav_profile:
                 openFragment(new ProfileFragment());
-                return closeDrawer(true);
+                return closeDrawer();
+            case R.id.nav_delivered:
+                openFragment(new DeliveredFragment());
+                return closeDrawer();
+            case R.id.nav_reviews:
+                openFragment(new ReviewFragment());
+                return closeDrawer();
+            case R.id.nav_exit:
+                finishAffinity();
+                return true;
             default:
-                return closeDrawer(true);
+                return closeDrawer();
         }
     }
 
@@ -116,10 +130,10 @@ public class DeliveryDrawerActivity extends BaseActivity
                 .commit();
     }
 
-    private boolean closeDrawer(boolean isClose){
+    private boolean closeDrawer(){
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
-        return isClose;
+        return true;
     }
 
     @Override

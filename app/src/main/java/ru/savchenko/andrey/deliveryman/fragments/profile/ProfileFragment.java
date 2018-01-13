@@ -14,7 +14,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.savchenko.andrey.deliveryman.R;
 import ru.savchenko.andrey.deliveryman.base.BaseFragment;
-import ru.savchenko.andrey.deliveryman.view.CircleTransform;
 
 /**
  * Created by Andrey on 25.09.2017.
@@ -39,6 +38,7 @@ public class ProfileFragment extends BaseFragment implements ProfileView {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
+        setToolbarTitle("Профиль");
         Picasso.with(getActivity())
                 .load("http://i.imgur.com/0JTbWMn.jpg")
                 .into(ivPhoto);
