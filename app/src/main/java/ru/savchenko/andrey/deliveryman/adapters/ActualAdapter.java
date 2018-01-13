@@ -1,11 +1,11 @@
 package ru.savchenko.andrey.deliveryman.adapters;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
+
+import java.text.SimpleDateFormat;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,25 +28,39 @@ public class ActualAdapter extends BaseAdapter {
     }
 
     class ActualViewHolder extends BaseViewHolder<Order>{
-        @BindView(R.id.tvOrderBody)
-        TextView tvOrderBody;
-        @BindView(R.id.tvTime) TextView tvTime;
-        @BindView(R.id.btnTime)
-        Button btnTime;
-        @BindView(R.id.tvWay)
-        TextView tvWay;
+        @BindView(R.id.card_view_title)View card_view_title;
+        @BindView(R.id.card_view_body)View card_view_body;
+        @BindView(R.id.card_view_address)View card_view_address;
+        @BindView(R.id.card_view_created)View card_view_created;
+        @BindView(R.id.card_view_dead_line)View card_view_dead_line;
+        @BindView(R.id.card_view_way)View card_view_way;
+        @BindView(R.id.card_view_status)View card_view_status;
+        @BindView(R.id.card_view_rating)View card_view_rating;
 
         @Override
         public void bind(Order order, OnItemClickListener clickListener) {
             super.bind(order, clickListener);
-            Log.i(TAG, "bind: " + order);
-            tvOrderBody.setText(order.getBody());
-            tvWay.setText("Расстояние: " + order.getWay() + "км");
+            setNameValueByCardViewName("Заголовок", order.getTitle(), card_view_title);
+            setNameValueByCardViewName("Описание", order.getBody(), card_view_body);
+            setNameValueByCardViewName("Адрес", order.getAddress(), card_view_address);
+            setNameValueByCardViewName("Дата создания", new SimpleDateFormat("dd/mm/yyyy").format(order.getCreated()), card_view_created);
+            setNameValueByCardViewName("Крайний срок", new SimpleDateFormat("dd/mm/yyyy").format(order.getDeadLine()), card_view_dead_line);
+            setNameValueByCardViewName("Расстояние", String.valueOf(order.getWay()), card_view_way);
+            setNameValueByCardViewName("Сатус", String.valueOf(order.getStatus()), card_view_status);
+            setNameValueByCardViewName("Рейтинг", String.valueOf(order.getRating()), card_view_rating);
         }
 
         ActualViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
+
+        private void setNameValueByCardViewName(String name, String value, View cardView){
+            TextView tvName = cardView.findViewById(R.id.tvName);
+            TextView tvValue = cardView.findViewById(R.id.tvValue);
+            tvName.setText(name);
+            tvValue.setText(value);
+        }
+
     }
 }

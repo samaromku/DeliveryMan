@@ -1,5 +1,6 @@
 package ru.savchenko.andrey.deliveryman.fragments.actual;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,7 +20,7 @@ import ru.savchenko.andrey.deliveryman.App;
 import ru.savchenko.andrey.deliveryman.R;
 import ru.savchenko.andrey.deliveryman.adapters.ActualAdapter;
 import ru.savchenko.andrey.deliveryman.base.BaseFragment;
-import ru.savchenko.andrey.deliveryman.dialogs.oneorder.OneOrderDialog;
+import ru.savchenko.andrey.deliveryman.dialogs.oneorder.OneOrderActivity;
 import ru.savchenko.andrey.deliveryman.entities.Order;
 import ru.savchenko.andrey.deliveryman.fragments.actual.di.ActualComponent;
 import ru.savchenko.andrey.deliveryman.fragments.actual.di.ActualModule;
@@ -68,8 +69,6 @@ public class ActualFragment extends BaseFragment implements ActualView, OnItemCl
 
     @Override
     public void onClick(int position) {
-        OneOrderDialog oneOrderDialog = new OneOrderDialog();
-        oneOrderDialog.show(getFragmentManager(), "one_order");
-        Log.i(TAG, "onClick: " + position);
+        startActivity(new Intent(getActivity(), OneOrderActivity.class));
     }
 }

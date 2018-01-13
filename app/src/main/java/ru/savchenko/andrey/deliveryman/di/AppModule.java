@@ -20,7 +20,7 @@ import ru.savchenko.andrey.deliveryman.activities.draw.di.MainComponent;
 import ru.savchenko.andrey.deliveryman.activities.neworder.NewOrderActivity;
 import ru.savchenko.andrey.deliveryman.activities.neworder.di.NewOrderComponent;
 import ru.savchenko.andrey.deliveryman.di.base.ComponentBuilder;
-import ru.savchenko.andrey.deliveryman.dialogs.oneorder.OneOrderDialog;
+import ru.savchenko.andrey.deliveryman.dialogs.oneorder.OneOrderActivity;
 import ru.savchenko.andrey.deliveryman.dialogs.oneorder.di.OneOrderComponent;
 import ru.savchenko.andrey.deliveryman.fragments.actual.ActualFragment;
 import ru.savchenko.andrey.deliveryman.fragments.actual.di.ActualComponent;
@@ -48,7 +48,7 @@ class AppModule {
 
     @Provides
     @IntoMap
-    @ClassKey(OneOrderDialog.class)
+    @ClassKey(OneOrderActivity.class)
     ComponentBuilder provideOneOrder(OneOrderComponent.Builder builder){
         return builder;
     }

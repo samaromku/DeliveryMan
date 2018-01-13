@@ -2,7 +2,6 @@ package ru.savchenko.andrey.deliveryman.activities.neworder;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -15,8 +14,9 @@ import ru.savchenko.andrey.deliveryman.App;
 import ru.savchenko.andrey.deliveryman.R;
 import ru.savchenko.andrey.deliveryman.activities.neworder.di.NewOrderComponent;
 import ru.savchenko.andrey.deliveryman.activities.neworder.di.NewOrderModule;
+import ru.savchenko.andrey.deliveryman.base.BaseActivity;
 
-public class NewOrderActivity extends AppCompatActivity implements NewOrderView {
+public class NewOrderActivity extends BaseActivity implements NewOrderView {
     private static final String TAG = NewOrderActivity.class.getSimpleName();
     @Inject
     NewOrderPresenter presenter;
@@ -43,6 +43,7 @@ public class NewOrderActivity extends AppCompatActivity implements NewOrderView 
         ButterKnife.bind(this);
         ((NewOrderComponent) App.getComponentManager()
                 .getPresenterComponent(getClass(), new NewOrderModule(this))).inject(this);
+        initBackButton();
     }
 
     @Override

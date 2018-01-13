@@ -24,15 +24,16 @@ public class Order {
     private String url;
 
     private Order(Builder builder) {
-        id = builder.id;
-        title = builder.title;
-        body = builder.body;
-        created = builder.created;
-        deadLine = builder.deadLine;
-        way = builder.way;
-        status = builder.status;
-        rating = builder.rating;
-        url = builder.url;
+        setId(builder.id);
+        setTitle(builder.title);
+        setBody(builder.body);
+        setAddress(builder.address);
+        setCreated(builder.created);
+        setDeadLine(builder.deadLine);
+        setWay(builder.way);
+        setStatus(builder.status);
+        setRating(builder.rating);
+        setUrl(builder.url);
     }
 
     @Override
@@ -48,6 +49,14 @@ public class Order {
                 ", rating=" + rating +
                 ", url=" + url +
                 '}';
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public int getId() {
@@ -122,10 +131,41 @@ public class Order {
         this.url = url;
     }
 
+
+
+    public Order(int id, String title, String body, Date created, Date deadLine, double way) {
+        this.id = id;
+        this.title = title;
+        this.body = body;
+        this.created = created;
+        this.deadLine = deadLine;
+        this.way = way;
+    }
+
+    public Order(int id, String title, String body, String address, Date created, Date deadLine) {
+        this.id = id;
+        this.title = title;
+        this.body = body;
+        this.address = address;
+        this.created = created;
+        this.deadLine = deadLine;
+    }
+
+    public Order(int id, String title, String body, Date created, Date deadLine, double way, String url) {
+        this.id = id;
+        this.title = title;
+        this.body = body;
+        this.created = created;
+        this.deadLine = deadLine;
+        this.way = way;
+        this.url = url;
+    }
+
     public static final class Builder {
         private int id;
         private String title;
         private String body;
+        private String address;
         private Date created;
         private Date deadLine;
         private double way;
@@ -148,6 +188,11 @@ public class Order {
 
         public Builder body(String val) {
             body = val;
+            return this;
+        }
+
+        public Builder address(String val) {
+            address = val;
             return this;
         }
 
@@ -184,33 +229,5 @@ public class Order {
         public Order build() {
             return new Order(this);
         }
-    }
-
-    public Order(int id, String title, String body, Date created, Date deadLine, double way) {
-        this.id = id;
-        this.title = title;
-        this.body = body;
-        this.created = created;
-        this.deadLine = deadLine;
-        this.way = way;
-    }
-
-    public Order(int id, String title, String body, String address, Date created, Date deadLine) {
-        this.id = id;
-        this.title = title;
-        this.body = body;
-        this.address = address;
-        this.created = created;
-        this.deadLine = deadLine;
-    }
-
-    public Order(int id, String title, String body, Date created, Date deadLine, double way, String url) {
-        this.id = id;
-        this.title = title;
-        this.body = body;
-        this.created = created;
-        this.deadLine = deadLine;
-        this.way = way;
-        this.url = url;
     }
 }

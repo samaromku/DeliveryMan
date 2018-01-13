@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/card_view_title"
+            layout="@layout/cardview" />
+
+        <include
+            android:id="@+id/card_view_body"
+            layout="@layout/cardview" />
+
+        <include
+            android:id="@+id/card_view_address"
+            layout="@layout/cardview" />
+
+        <include
+            android:id="@+id/card_view_created"
+            layout="@layout/cardview" />
+
+        <include
+            android:id="@+id/card_view_dead_line"
+            layout="@layout/cardview" />
+
+        <include
+            android:id="@+id/card_view_way"
+            layout="@layout/cardview" />
+
+        <include
+            android:id="@+id/card_view_status"
+            layout="@layout/cardview" />
+
+        <include
+            android:id="@+id/card_view_rating"
+            layout="@layout/cardview" />
+
+    </LinearLayout>
+</ScrollView>
