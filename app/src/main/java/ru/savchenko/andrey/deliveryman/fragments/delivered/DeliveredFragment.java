@@ -2,6 +2,7 @@ package ru.savchenko.andrey.deliveryman.fragments.delivered;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -63,5 +64,7 @@ public class DeliveredFragment extends BaseFragment implements DeliveredView {
         });
         rvOrder.setLayoutManager(new LinearLayoutManager(getActivity()));
         rvOrder.setAdapter(adapter);
+        rvOrder.addItemDecoration(new DividerItemDecoration(getActivity(),
+                DividerItemDecoration.VERTICAL));
     }
 }

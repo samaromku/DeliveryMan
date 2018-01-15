@@ -10,12 +10,10 @@
     <string name="current_orders">Текущие заказы</string>
     <string name="delivered_orders">Доставленные заказы</string>
     <string name="reviews">Отзывы</string>
-    <string name="name">Имя</string>
     <string name="post">Должность</string>
     <string name="made_per_day">За день</string>
     <string name="on_hands">На руках</string>
     <string name="middle_time">Среднее время</string>
-    <string name="status">Статус</string>
     <string name="photo">Аватар</string>
     <string name="edit">Редактировать</string>
     <string name="exit">Выход</string>
@@ -24,4 +22,9 @@
     <string name="address">Адрес</string>
     <string name="description">Описание</string>
     <string name="title">Название</string>
+    <string name="curiers">Курьеры</string>
+    <string name="name">Имя</string>
+    <string name="status">Статус</string>
+    <string name="filter">Фильтр</string>
+    <string name="search">Поиск</string>
 </resources>

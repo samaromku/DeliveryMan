@@ -15,6 +15,8 @@ import ru.savchenko.andrey.deliveryman.base.BaseViewHolder;
 import ru.savchenko.andrey.deliveryman.entities.Order;
 import ru.savchenko.andrey.deliveryman.interfaces.OnItemClickListener;
 
+import static ru.savchenko.andrey.deliveryman.storage.Utils.setNameValueByCardViewName;
+
 /**
  * Created by Andrey on 25.09.2017.
  */
@@ -57,13 +59,6 @@ public class ActualAdapter extends BaseAdapter {
         ActualViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-        }
-
-        private void setNameValueByCardViewName(String name, String value, View cardView){
-            TextView tvName = cardView.findViewById(R.id.tvName);
-            TextView tvValue = cardView.findViewById(R.id.tvValue);
-            tvName.setText(name);
-            tvValue.setText(value);
         }
 
     }

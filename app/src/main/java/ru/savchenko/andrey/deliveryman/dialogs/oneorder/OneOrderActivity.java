@@ -18,6 +18,8 @@ import ru.savchenko.andrey.deliveryman.dialogs.oneorder.di.OneOrderComponent;
 import ru.savchenko.andrey.deliveryman.dialogs.oneorder.di.OneOrderModule;
 import ru.savchenko.andrey.deliveryman.entities.Order;
 
+import static ru.savchenko.andrey.deliveryman.storage.Utils.setNameValueByCardViewName;
+
 public class OneOrderActivity extends BaseActivity implements OneOrderView {
     private static final String TAG = OneOrderActivity.class.getSimpleName();
     @Inject
@@ -66,12 +68,5 @@ public class OneOrderActivity extends BaseActivity implements OneOrderView {
         if(isFinishing()) {
             App.getComponentManager().releaseComponent(getClass());
         }
-    }
-
-    private void setNameValueByCardViewName(String name, String value, View cardView){
-        TextView tvName = cardView.findViewById(R.id.tvName);
-        TextView tvValue = cardView.findViewById(R.id.tvValue);
-        tvName.setText(name);
-        tvValue.setText(value);
     }
 }

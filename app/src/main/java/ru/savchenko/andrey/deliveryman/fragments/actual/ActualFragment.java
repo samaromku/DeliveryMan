@@ -3,6 +3,7 @@ package ru.savchenko.andrey.deliveryman.fragments.actual;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -66,6 +67,8 @@ public class ActualFragment extends BaseFragment implements ActualView, OnItemCl
         adapter.setDataList(ordersList);
         adapter.setClickListener(this);
         rvActual.setAdapter(adapter);
+        rvActual.addItemDecoration(new DividerItemDecoration(getActivity(),
+                DividerItemDecoration.VERTICAL));
     }
 
     @Override

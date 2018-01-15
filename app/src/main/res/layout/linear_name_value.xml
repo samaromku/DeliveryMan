@@ -15,6 +15,7 @@
         android:maxLines="1"/>
 
     <TextView
+        android:textColor="@android:color/black"
         android:id="@+id/tvValue"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

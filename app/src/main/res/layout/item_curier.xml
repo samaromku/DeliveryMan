@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/card_view_name"
+        layout="@layout/linear_name_value" />
+
+    <include
+        android:id="@+id/card_view_phone"
+        layout="@layout/linear_name_value" />
+
+    <include
+        android:id="@+id/card_view_status"
+        layout="@layout/linear_name_value" />
+
+</LinearLayout>

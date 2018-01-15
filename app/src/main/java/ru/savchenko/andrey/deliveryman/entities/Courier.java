@@ -8,11 +8,13 @@ public class Courier {
     private int id;
     private String name;
     private String phone;
+    private int status;
 
-    private Courier(Builder builder) {
-        id = builder.id;
-        name = builder.name;
-        phone = builder.phone;
+    public Courier(int id, String name, String phone, int status) {
+        this.id = id;
+        this.name = name;
+        this.phone = phone;
+        this.status = status;
     }
 
     public int getId() {
@@ -39,31 +41,11 @@ public class Courier {
         this.phone = phone;
     }
 
-    public static final class Builder {
-        private int id;
-        private String name;
-        private String phone;
+    public int getStatus() {
+        return status;
+    }
 
-        public Builder() {
-        }
-
-        public Builder id(int val) {
-            id = val;
-            return this;
-        }
-
-        public Builder name(String val) {
-            name = val;
-            return this;
-        }
-
-        public Builder phone(String val) {
-            phone = val;
-            return this;
-        }
-
-        public Courier build() {
-            return new Courier(this);
-        }
+    public void setStatus(int status) {
+        this.status = status;
     }
 }

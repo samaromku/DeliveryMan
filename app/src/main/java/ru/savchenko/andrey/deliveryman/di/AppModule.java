@@ -24,10 +24,12 @@ import ru.savchenko.andrey.deliveryman.dialogs.oneorder.OneOrderActivity;
 import ru.savchenko.andrey.deliveryman.dialogs.oneorder.di.OneOrderComponent;
 import ru.savchenko.andrey.deliveryman.fragments.actual.ActualFragment;
 import ru.savchenko.andrey.deliveryman.fragments.actual.di.ActualComponent;
+import ru.savchenko.andrey.deliveryman.fragments.curiers.CuriersFragment;
+import ru.savchenko.andrey.deliveryman.fragments.curiers.di.CuriersComponent;
 import ru.savchenko.andrey.deliveryman.fragments.delivered.DeliveredFragment;
 import ru.savchenko.andrey.deliveryman.fragments.delivered.di.DeliveredComponent;
-import ru.savchenko.andrey.deliveryman.fragments.reviews.ReviewFragment;
-import ru.savchenko.andrey.deliveryman.fragments.reviews.di.ReviewComponent;
+import ru.savchenko.andrey.deliveryman.fragments.profile.ProfileUserFragment;
+import ru.savchenko.andrey.deliveryman.fragments.profile.di.ProfileUserComponent;
 import ru.savchenko.andrey.deliveryman.network.DeliveryNetworkService;
 
 /**
@@ -39,7 +41,8 @@ import ru.savchenko.andrey.deliveryman.network.DeliveryNetworkService;
     NewOrderComponent.class,
     OneOrderComponent.class,
     DeliveredComponent.class,
-    ReviewComponent.class,
+    CuriersComponent.class,
+    ProfileUserComponent.class,
 })
 class AppModule {
     private static final String DATE_PATTERN = "yyyy-MM-dd'T'HH:mm:ss";
@@ -54,15 +57,22 @@ class AppModule {
 
     @Provides
     @IntoMap
-    @ClassKey(DeliveredFragment.class)
-    ComponentBuilder provideDelivered(DeliveredComponent.Builder builder){
+    @ClassKey(CuriersFragment.class)
+    ComponentBuilder provideCourier(CuriersComponent.Builder builder){
         return builder;
     }
 
     @Provides
     @IntoMap
-    @ClassKey(ReviewFragment.class)
-    ComponentBuilder provideReview(ReviewComponent.Builder builder){
+    @ClassKey(ProfileUserFragment.class)
+    ComponentBuilder provideProfile(ProfileUserComponent.Builder builder){
+        return builder;
+    }
+
+    @Provides
+    @IntoMap
+    @ClassKey(DeliveredFragment.class)
+    ComponentBuilder provideDelivered(DeliveredComponent.Builder builder){
         return builder;
     }
 

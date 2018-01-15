@@ -44,6 +44,7 @@ public class NewOrderActivity extends BaseActivity implements NewOrderView {
         ((NewOrderComponent) App.getComponentManager()
                 .getPresenterComponent(getClass(), new NewOrderModule(this))).inject(this);
         initBackButton();
+        changeToolbarTitle(R.string.new_order);
     }
 
     @Override

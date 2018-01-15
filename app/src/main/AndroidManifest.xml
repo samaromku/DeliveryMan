@@ -13,7 +13,6 @@
         <activity android:name=".activities.auth.AuthActivity" />
         <activity
             android:name=".activities.draw.DeliveryDrawerActivity"
-            android:label="@string/title_activity_delivery_drawer"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
