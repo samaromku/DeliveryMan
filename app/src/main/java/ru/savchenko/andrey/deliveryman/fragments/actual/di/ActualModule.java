@@ -3,7 +3,6 @@ package ru.savchenko.andrey.deliveryman.fragments.actual.di;
 import dagger.Module;
 import dagger.Provides;
 import ru.savchenko.andrey.deliveryman.di.base.BaseModule;
-import ru.savchenko.andrey.deliveryman.fragments.actual.ActualInteractor;
 import ru.savchenko.andrey.deliveryman.fragments.actual.ActualInteractorImpl;
 import ru.savchenko.andrey.deliveryman.fragments.actual.ActualPresenter;
 import ru.savchenko.andrey.deliveryman.fragments.actual.ActualView;
@@ -21,13 +20,13 @@ public class ActualModule implements BaseModule{
 
     @Provides
     @ActualScope
-    ActualInteractor interactor(){
+    ActualInteractorImpl interactor(){
         return new ActualInteractorImpl();
     }
 
     @Provides
     @ActualScope
-    ActualPresenter presenter(ActualInteractor interactor){
+    ActualPresenter presenter(ActualInteractorImpl interactor){
         return new ActualPresenter(view, interactor);
     }
 }

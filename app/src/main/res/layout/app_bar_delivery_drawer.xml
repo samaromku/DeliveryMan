@@ -42,16 +42,17 @@
                     android:id="@+id/etSearch"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_toLeftOf="@+id/ivClose"/>
+                    android:layout_toLeftOf="@+id/ivClose" />
 
                 <ImageView
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="8dp"
+                    android:id="@+id/ivClose"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/ivClose"
-                    android:src="@drawable/ic_close"/>
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:paddingRight="8dp"
+                    android:paddingLeft="8dp"
+                    android:src="@drawable/ic_close" />
 
             </RelativeLayout>
         </android.support.v7.widget.Toolbar>

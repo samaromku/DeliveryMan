@@ -11,4 +11,6 @@ import ru.savchenko.andrey.deliveryman.entities.Order;
 
 public interface ActualView extends BaseView {
     void setOrdersList(List<Order>ordersList);
+
+    void setSearchedList(List<Order>orders);
 }

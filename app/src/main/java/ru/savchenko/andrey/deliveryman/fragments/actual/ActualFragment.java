@@ -26,6 +26,7 @@ import ru.savchenko.andrey.deliveryman.entities.Order;
 import ru.savchenko.andrey.deliveryman.fragments.actual.di.ActualComponent;
 import ru.savchenko.andrey.deliveryman.fragments.actual.di.ActualModule;
 import ru.savchenko.andrey.deliveryman.interfaces.OnItemClickListener;
+import ru.savchenko.andrey.deliveryman.interfaces.OnSearch;
 
 import static android.content.ContentValues.TAG;
 
@@ -33,7 +34,7 @@ import static android.content.ContentValues.TAG;
  * Created by Andrey on 25.09.2017.
  */
 
-public class ActualFragment extends BaseFragment implements ActualView, OnItemClickListener{
+public class ActualFragment extends BaseFragment implements ActualView, OnItemClickListener, OnSearch{
     @Inject ActualPresenter presenter;
     @BindView(R.id.rvActual)RecyclerView rvActual;
     private ActualAdapter adapter = new ActualAdapter();
@@ -74,5 +75,16 @@ public class ActualFragment extends BaseFragment implements ActualView, OnItemCl
     @Override
     public void onClick(int position) {
         startActivity(new Intent(getActivity(), OneOrderActivity.class));
+    }
+
+    @Override
+    public void search(String search) {
+        presenter.onSearch(search);
+    }
+
+    @Override
+    public void setSearchedList(List<Order> orders) {
+        adapter.setDataList(orders);
+        adapter.notifyDataSetChanged();
     }
 }

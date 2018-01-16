@@ -23,8 +23,9 @@ import ru.savchenko.andrey.deliveryman.base.BaseFragment;
 import ru.savchenko.andrey.deliveryman.entities.Order;
 import ru.savchenko.andrey.deliveryman.fragments.delivered.di.DeliveredComponent;
 import ru.savchenko.andrey.deliveryman.fragments.delivered.di.DeliveredModule;
+import ru.savchenko.andrey.deliveryman.interfaces.OnSearch;
 
-public class DeliveredFragment extends BaseFragment implements DeliveredView {
+public class DeliveredFragment extends BaseFragment implements DeliveredView, OnSearch {
     private static final String TAG = DeliveredFragment.class.getSimpleName();
     @Inject
     DeliveredPresenter presenter;
@@ -66,5 +67,10 @@ public class DeliveredFragment extends BaseFragment implements DeliveredView {
         rvOrder.setAdapter(adapter);
         rvOrder.addItemDecoration(new DividerItemDecoration(getActivity(),
                 DividerItemDecoration.VERTICAL));
+    }
+
+    @Override
+    public void search(String search) {
+        Log.i(TAG, "search: " + search);
     }
 }

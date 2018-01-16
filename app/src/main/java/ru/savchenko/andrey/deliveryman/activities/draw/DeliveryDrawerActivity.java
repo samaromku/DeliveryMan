@@ -1,5 +1,7 @@
 package ru.savchenko.andrey.deliveryman.activities.draw;
 
+import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -7,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.annotation.StringRes;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -15,10 +18,13 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.jakewharton.rxbinding2.widget.RxTextView;
+
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
@@ -39,6 +45,7 @@ import ru.savchenko.andrey.deliveryman.fragments.curiers.CuriersFragment;
 import ru.savchenko.andrey.deliveryman.fragments.delivered.DeliveredFragment;
 import ru.savchenko.andrey.deliveryman.fragments.profile.ProfileUserFragment;
 import ru.savchenko.andrey.deliveryman.interfaces.OnChangeTitle;
+import ru.savchenko.andrey.deliveryman.interfaces.OnSearch;
 import ru.savchenko.andrey.deliveryman.network.DeliveryNetworkService;
 
 public class DeliveryDrawerActivity extends BaseActivity
@@ -47,6 +54,7 @@ public class DeliveryDrawerActivity extends BaseActivity
     DeliveryNetworkService deliveryNetworkService;
 
     public static final String TAG = DeliveryDrawerActivity.class.getSimpleName();
+    private ActionBarDrawerToggle toggle;
     @BindView(R.id.search_toolbar) Toolbar searchToolbar;
     @BindView(R.id.toolbar)Toolbar toolbar;
     @BindView(R.id.etSearch)EditText etSearch;
@@ -54,6 +62,11 @@ public class DeliveryDrawerActivity extends BaseActivity
     void onBackClick(){
         backClick();
     }
+    @OnClick(R.id.ivClose)
+    void onCloseClick(){
+        etSearch.setText("");
+    }
+    private BaseFragment baseFragment;
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
@@ -72,9 +85,34 @@ public class DeliveryDrawerActivity extends BaseActivity
                 .subscribe(addresses -> Log.i(TAG, "onCreate: " + addresses), Throwable::printStackTrace);
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+        toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
+        DrawerLayout.DrawerListener drawerListener = new DrawerLayout.DrawerListener() {
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+                Log.i(TAG, "onDrawerSlide: ");
+            }
+
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                Log.i(TAG, "onDrawerOpened: ");
+            }
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                Log.i(TAG, "onDrawerClosed: ");
+                baseFragment.setOnChangeTitle(DeliveryDrawerActivity.this);
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.container, baseFragment)
+                        .commit();
+            }
+
+            @Override
+            public void onDrawerStateChanged(int newState) {
+                Log.i(TAG, "onDrawerStateChanged: ");
+            }
+        };
+        drawer.addDrawerListener(drawerListener);
         toggle.syncState();
 
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -84,17 +122,27 @@ public class DeliveryDrawerActivity extends BaseActivity
 
         navigationView.setNavigationItemSelectedListener(this);
         onNavigationItemSelected(navigationView.getMenu().findItem(R.id.nav_actual));
-        RxTextView.afterTextChangeEvents(etSearch)
+        RxTextView.textChanges(etSearch)
+                .debounce(1000, TimeUnit.MILLISECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(textViewAfterTextChangeEvent -> {
-                    Log.i(TAG, "onCreate: " + getSupportFragmentManager().getFragments().get(0));
+                .subscribe(text -> {
+                    if(!getSupportFragmentManager().getFragments().isEmpty()) {
+                        Fragment fragment = getSupportFragmentManager().getFragments().get(0);
+                        if (fragment instanceof OnSearch) {
+                            OnSearch onSearch = (OnSearch) fragment;
+                            onSearch.search(text.toString());
+                        }
+                    }
                 });
     }
 
     private void backClick(){
         toolbar.setVisibility(View.VISIBLE);
         searchToolbar.setVisibility(View.GONE);
+        InputMethodManager imm = (InputMethodManager)this.getSystemService(Service.INPUT_METHOD_SERVICE);
+        if(imm!=null)
+        imm.hideSoftInputFromWindow(etSearch.getWindowToken(), 0);
     }
 
     @Override
@@ -131,6 +179,11 @@ public class DeliveryDrawerActivity extends BaseActivity
         toolbar.setVisibility(View.GONE);
         searchToolbar.setVisibility(View.VISIBLE);
         etSearch.requestFocus();
+        InputMethodManager keyboard = (InputMethodManager)
+                getSystemService(Context.INPUT_METHOD_SERVICE);
+        if(keyboard!=null) {
+            keyboard.showSoftInput(etSearch, 0);
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
@@ -153,20 +206,12 @@ public class DeliveryDrawerActivity extends BaseActivity
     }
 
     private boolean openFragment(BaseFragment fragment) {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
-        fragment.setOnChangeTitle(this);
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.container, fragment)
-                .commit();
+
+        baseFragment = fragment;
         return true;
     }
-
-//    private boolean closeDrawer(){
-//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-//        drawer.closeDrawer(GravityCompat.START);
-//        return true;
-//    }
 
     @Override
     public void changeTitle(@StringRes int title) {

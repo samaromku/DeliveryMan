@@ -30,24 +30,24 @@ public class ActualAdapter extends BaseAdapter {
     }
 
     class ActualViewHolder extends BaseViewHolder<Order>{
-//        @BindView(R.id.card_view_title)View card_view_title;
         @BindView(R.id.card_view_body)View card_view_body;
         @BindView(R.id.card_view_address)View card_view_address;
         @BindView(R.id.card_view_created)View card_view_created;
         @BindView(R.id.card_view_dead_line)View card_view_dead_line;
         @BindView(R.id.card_view_way)View card_view_way;
         @BindView(R.id.card_view_status)View card_view_status;
+        @BindView(R.id.card_view_comment)View card_view_comment;
 //        @BindView(R.id.card_view_rating)View card_view_rating;
 
         @Override
         public void bind(Order order, OnItemClickListener clickListener) {
             super.bind(order, clickListener);
-//            setNameValueByCardViewName("Заголовок", order.getTitle(), card_view_title);
             setNameValueByCardViewName("Описание", order.getBody(), card_view_body);
             setNameValueByCardViewName("Адрес", order.getAddress(), card_view_address);
             setNameValueByCardViewName("Дата создания", new SimpleDateFormat("dd/mm/yyyy").format(order.getCreated()), card_view_created);
             setNameValueByCardViewName("Крайний срок", new SimpleDateFormat("dd/mm/yyyy").format(order.getDeadLine()), card_view_dead_line);
             setNameValueByCardViewName("Расстояние", String.valueOf(order.getWay()), card_view_way);
+            setNameValueByCardViewName("Комментарий", String.valueOf(order.getComment()), card_view_comment);
             if(order.getStatus()==1) {
                 setNameValueByCardViewName("Сатус", "У курьера", card_view_status);
             }else if(order.getStatus()==2){

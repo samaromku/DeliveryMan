@@ -22,6 +22,7 @@ public class Order {
     private int status;
     private int rating;
     private String url;
+    private String comment;
 
     private Order(Builder builder) {
         setId(builder.id);
@@ -131,7 +132,13 @@ public class Order {
         this.url = url;
     }
 
+    public String getComment() {
+        return comment;
+    }
 
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
 
     public Order(int id, String title, String body, Date created, Date deadLine, double way) {
         this.id = id;

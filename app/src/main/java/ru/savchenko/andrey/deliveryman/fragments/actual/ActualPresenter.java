@@ -5,9 +5,9 @@ package ru.savchenko.andrey.deliveryman.fragments.actual;
  */
 public class ActualPresenter {
     private ActualView view;
-    private ActualInteractor interactor;
+    private ActualInteractorImpl interactor;
 
-    public ActualPresenter(ActualView view, ActualInteractor interactor) {
+    public ActualPresenter(ActualView view, ActualInteractorImpl interactor) {
         this.view = view;
         this.interactor = interactor;
     }
@@ -15,5 +15,10 @@ public class ActualPresenter {
     void setOrders(){
         interactor.ordersList()
                 .subscribe(orders -> view.setOrdersList(orders));
+    }
+
+    void onSearch(String search){
+        interactor.searchedOrders(search)
+                .subscribe(orders -> view.setSearchedList(orders));
     }
 }

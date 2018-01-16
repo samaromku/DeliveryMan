@@ -33,6 +33,10 @@
         android:id="@+id/card_view_status"
         layout="@layout/linear_name_value" />
 
+    <include
+        android:id="@+id/card_view_comment"
+        layout="@layout/linear_name_value" />
+
     <!--<include-->
     <!--android:id="@+id/card_view_rating"-->
     <!--layout="@layout/linear_name_value" />-->

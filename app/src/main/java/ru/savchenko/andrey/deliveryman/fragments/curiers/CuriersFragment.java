@@ -24,6 +24,7 @@ import butterknife.ButterKnife;
 import android.support.v7.widget.LinearLayoutManager;
 
 import ru.savchenko.andrey.deliveryman.fragments.curiers.adapter.CurierAdapter;
+import ru.savchenko.andrey.deliveryman.interfaces.OnSearch;
 
 import java.util.List;
 
@@ -31,7 +32,7 @@ import android.util.Log;
 
 import javax.inject.Inject;
 
-public class CuriersFragment extends BaseFragment implements CuriersView {
+public class CuriersFragment extends BaseFragment implements CuriersView, OnSearch {
     private static final String TAG = CuriersFragment.class.getSimpleName();
     @Inject
     CuriersPresenter presenter;
@@ -73,5 +74,10 @@ public class CuriersFragment extends BaseFragment implements CuriersView {
         rvCurier.setAdapter(adapter);
         rvCurier.addItemDecoration(new DividerItemDecoration(getActivity(),
                 DividerItemDecoration.VERTICAL));
+    }
+
+    @Override
+    public void search(String search) {
+        Log.i(TAG, "search: " + search);
     }
 }
