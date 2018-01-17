@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.savchenko.andrey.deliveryman.R;
@@ -26,6 +27,9 @@ public class CurierAdapter extends BaseAdapter<Courier> {
         @BindView(R.id.card_view_name)View cardViewName;
         @BindView(R.id.card_view_phone)View cardViewPhone;
         @BindView(R.id.card_view_status)View cardViewStatus;
+        @BindString(R.string.status)String status;
+        @BindString(R.string.phone)String phone;
+        @BindString(R.string.name)String name;
 
         CurierViewHolder(View itemView) {
             super(itemView);
@@ -35,17 +39,17 @@ public class CurierAdapter extends BaseAdapter<Courier> {
         @Override
         public void bind(Courier courier, OnItemClickListener clickListener) {
             super.bind(courier, clickListener);
-            setNameValueByCardViewName("Имя", courier.getName(), cardViewName);
-            setNameValueByCardViewName("Телефон", courier.getPhone(), cardViewPhone);
+            setNameValueByCardViewName(name, courier.getName(), cardViewName);
+            setNameValueByCardViewName(phone, courier.getPhone(), cardViewPhone);
             switch (courier.getStatus()){
                 case 0:
-                    setNameValueByCardViewName("Статус", "Отсутствует", cardViewStatus);
+                    setNameValueByCardViewName(status, "Отсутствует", cardViewStatus);
                     break;
                 case 1:
-                    setNameValueByCardViewName("Статус", "Свободен", cardViewStatus);
+                    setNameValueByCardViewName(status, "Свободен", cardViewStatus);
                     break;
                 case 2:
-                    setNameValueByCardViewName("Статус", "На заказе", cardViewStatus);
+                    setNameValueByCardViewName(status, "На заказе", cardViewStatus);
                     break;
             }
 

@@ -1,8 +1,8 @@
-package ru.savchenko.andrey.deliveryman.fragments.address;
+package ru.savchenko.andrey.deliveryman.fragments.contacts;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -18,15 +18,16 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.savchenko.andrey.deliveryman.App;
 import ru.savchenko.andrey.deliveryman.R;
-import ru.savchenko.andrey.deliveryman.entities.Address;
-import ru.savchenko.andrey.deliveryman.fragments.address.adapter.AddressAdapter;
-import ru.savchenko.andrey.deliveryman.fragments.address.di.AddressesComponent;
-import ru.savchenko.andrey.deliveryman.fragments.address.di.AddressesModule;
+import ru.savchenko.andrey.deliveryman.base.BaseFragment;
+import ru.savchenko.andrey.deliveryman.entities.Contact;
+import ru.savchenko.andrey.deliveryman.fragments.contacts.adapter.ContactAdapter;
+import ru.savchenko.andrey.deliveryman.fragments.contacts.di.ContactComponent;
+import ru.savchenko.andrey.deliveryman.fragments.contacts.di.ContactModule;
 
-public class AddressesFragment extends Fragment implements AddressesView {
-    private static final String TAG = AddressesFragment.class.getSimpleName();
+public class ContactFragment extends BaseFragment implements ContactView {
+    private static final String TAG = ContactFragment.class.getSimpleName();
     @Inject
-    AddressesPresenter presenter;
+    ContactPresenter presenter;
 
     @BindView(R.id.rvAddress)
     RecyclerView rvAddress;
@@ -34,8 +35,8 @@ public class AddressesFragment extends Fragment implements AddressesView {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        ((AddressesComponent) App.getComponentManager()
-                .getPresenterComponent(getClass(), new AddressesModule(this))).inject(this);
+        ((ContactComponent) App.getComponentManager()
+                .getPresenterComponent(getClass(), new ContactModule(this))).inject(this);
         return inflater.inflate(R.layout.fragment_addresses, container, false);
     }
 
@@ -54,13 +55,13 @@ public class AddressesFragment extends Fragment implements AddressesView {
     }
 
     @Override
-    public void setListToAdapter(List<Address> listToAdapter) {
-        AddressAdapter adapter = new AddressAdapter();
+    public void setListToAdapter(List<Contact> listToAdapter) {
+        ContactAdapter adapter = new ContactAdapter();
         adapter.setDataList(listToAdapter);
         adapter.setClickListener(position -> {
             Log.i(TAG, "setListToAdapter: " + position);
         });
-        rvAddress.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rvAddress.setLayoutManager(new GridLayoutManager(getActivity(), 3));
         rvAddress.setAdapter(adapter);
     }
 }

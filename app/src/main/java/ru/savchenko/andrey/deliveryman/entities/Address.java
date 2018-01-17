@@ -1,18 +1,22 @@
 package ru.savchenko.andrey.deliveryman.entities;
 
+/**
+ * Created by savchenko on 17.01.18.
+ */
+
 public class Address {
     private int id;
     private String address;
-    private String lat;
-    private String lng;
+    private double lat;
+    private double lng;
 
     @Override
     public String toString() {
         return "Address{" +
                 "id=" + id +
                 ", address='" + address + '\'' +
-                ", lat='" + lat + '\'' +
-                ", lng='" + lng + '\'' +
+                ", lat=" + lat +
+                ", lng=" + lng +
                 '}';
     }
 
@@ -32,19 +36,26 @@ public class Address {
         this.address = address;
     }
 
-    public String getLat() {
+    public double getLat() {
         return lat;
     }
 
-    public void setLat(String lat) {
+    public void setLat(double lat) {
         this.lat = lat;
     }
 
-    public String getLng() {
+    public double getLng() {
         return lng;
     }
 
-    public void setLng(String lng) {
+    public void setLng(double lng) {
+        this.lng = lng;
+    }
+
+    public Address(int id, String address, double lat, double lng) {
+        this.id = id;
+        this.address = address;
+        this.lat = lat;
         this.lng = lng;
     }
 }

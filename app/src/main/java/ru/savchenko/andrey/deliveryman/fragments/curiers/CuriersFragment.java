@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
+import butterknife.BindString;
 import ru.savchenko.andrey.deliveryman.App;
 import ru.savchenko.andrey.deliveryman.R;
 import ru.savchenko.andrey.deliveryman.base.BaseFragment;
@@ -39,6 +40,7 @@ public class CuriersFragment extends BaseFragment implements CuriersView, OnSear
 
     @BindView(R.id.rvCurier)
     RecyclerView rvCurier;
+    @BindString(R.string.couriers)String couriers;
 
     @Nullable
     @Override
@@ -54,7 +56,7 @@ public class CuriersFragment extends BaseFragment implements CuriersView, OnSear
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
         presenter.getListFroAdapter();
-        setToolbarTitle("Курьеры");
+        setToolbarTitle(couriers);
     }
 
     @Override

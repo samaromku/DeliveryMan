@@ -15,13 +15,14 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.savchenko.andrey.deliveryman.App;
 import ru.savchenko.andrey.deliveryman.R;
 import ru.savchenko.andrey.deliveryman.adapters.ActualAdapter;
 import ru.savchenko.andrey.deliveryman.base.BaseFragment;
-import ru.savchenko.andrey.deliveryman.dialogs.oneorder.OneOrderActivity;
+import ru.savchenko.andrey.deliveryman.activities.oneorder.OneOrderActivity;
 import ru.savchenko.andrey.deliveryman.entities.Order;
 import ru.savchenko.andrey.deliveryman.fragments.actual.di.ActualComponent;
 import ru.savchenko.andrey.deliveryman.fragments.actual.di.ActualModule;
@@ -37,6 +38,7 @@ import static android.content.ContentValues.TAG;
 public class ActualFragment extends BaseFragment implements ActualView, OnItemClickListener, OnSearch{
     @Inject ActualPresenter presenter;
     @BindView(R.id.rvActual)RecyclerView rvActual;
+    @BindString(R.string.current_orders)String current;
     private ActualAdapter adapter = new ActualAdapter();
 
     @Nullable
@@ -52,7 +54,7 @@ public class ActualFragment extends BaseFragment implements ActualView, OnItemCl
                 .getPresenterComponent(getClass(), new ActualModule(this))).inject(this);
         ButterKnife.bind(this, view);
         presenter.setOrders();
-        setToolbarTitle("Текущие");
+        setToolbarTitle(current);
     }
 
     @Override

@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.neworder.NewOrderActivity" />
-        <activity android:name=".dialogs.oneorder.OneOrderActivity"/>
+        <activity android:name=".activities.oneorder.OneOrderActivity"/>
     </application>
 
 </manifest>

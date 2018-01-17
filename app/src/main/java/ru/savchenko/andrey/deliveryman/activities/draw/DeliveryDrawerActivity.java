@@ -1,7 +1,5 @@
 package ru.savchenko.andrey.deliveryman.activities.draw;
 
-import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,12 +16,12 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.jakewharton.rxbinding2.widget.RxTextView;
 
+import java.lang.ref.WeakReference;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
@@ -41,12 +39,16 @@ import ru.savchenko.andrey.deliveryman.activities.neworder.NewOrderActivity;
 import ru.savchenko.andrey.deliveryman.base.BaseActivity;
 import ru.savchenko.andrey.deliveryman.base.BaseFragment;
 import ru.savchenko.andrey.deliveryman.fragments.actual.ActualFragment;
+import ru.savchenko.andrey.deliveryman.fragments.contacts.ContactFragment;
 import ru.savchenko.andrey.deliveryman.fragments.curiers.CuriersFragment;
 import ru.savchenko.andrey.deliveryman.fragments.delivered.DeliveredFragment;
 import ru.savchenko.andrey.deliveryman.fragments.profile.ProfileUserFragment;
 import ru.savchenko.andrey.deliveryman.interfaces.OnChangeTitle;
 import ru.savchenko.andrey.deliveryman.interfaces.OnSearch;
 import ru.savchenko.andrey.deliveryman.network.DeliveryNetworkService;
+
+import static ru.savchenko.andrey.deliveryman.storage.Utils.hideKeyboard;
+import static ru.savchenko.andrey.deliveryman.storage.Utils.showKeyboard;
 
 public class DeliveryDrawerActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnChangeTitle {
@@ -66,7 +68,7 @@ public class DeliveryDrawerActivity extends BaseActivity
     void onCloseClick(){
         etSearch.setText("");
     }
-    private BaseFragment baseFragment;
+    private WeakReference<BaseFragment> baseFragment;
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
@@ -86,33 +88,18 @@ public class DeliveryDrawerActivity extends BaseActivity
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        DrawerLayout.DrawerListener drawerListener = new DrawerLayout.DrawerListener() {
-            @Override
-            public void onDrawerSlide(View drawerView, float slideOffset) {
-                Log.i(TAG, "onDrawerSlide: ");
-            }
-
-            @Override
-            public void onDrawerOpened(View drawerView) {
-                Log.i(TAG, "onDrawerOpened: ");
-            }
-
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close){
             @Override
             public void onDrawerClosed(View drawerView) {
-                Log.i(TAG, "onDrawerClosed: ");
-                baseFragment.setOnChangeTitle(DeliveryDrawerActivity.this);
+                super.onDrawerClosed(drawerView);
+                baseFragment.get().setOnChangeTitle(DeliveryDrawerActivity.this);
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.container, baseFragment)
+                        .replace(R.id.container, baseFragment.get())
                         .commit();
             }
-
-            @Override
-            public void onDrawerStateChanged(int newState) {
-                Log.i(TAG, "onDrawerStateChanged: ");
-            }
         };
-        drawer.addDrawerListener(drawerListener);
+
+        drawer.addDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -121,6 +108,7 @@ public class DeliveryDrawerActivity extends BaseActivity
         llProfileInfo.setOnClickListener(view -> openFragment(new ProfileUserFragment()));
 
         navigationView.setNavigationItemSelectedListener(this);
+        baseFragment = new WeakReference<>(new ActualFragment());
         onNavigationItemSelected(navigationView.getMenu().findItem(R.id.nav_actual));
         RxTextView.textChanges(etSearch)
                 .debounce(1000, TimeUnit.MILLISECONDS)
@@ -140,9 +128,7 @@ public class DeliveryDrawerActivity extends BaseActivity
     private void backClick(){
         toolbar.setVisibility(View.VISIBLE);
         searchToolbar.setVisibility(View.GONE);
-        InputMethodManager imm = (InputMethodManager)this.getSystemService(Service.INPUT_METHOD_SERVICE);
-        if(imm!=null)
-        imm.hideSoftInputFromWindow(etSearch.getWindowToken(), 0);
+        hideKeyboard(this, etSearch);
     }
 
     @Override
@@ -178,12 +164,7 @@ public class DeliveryDrawerActivity extends BaseActivity
     private void openToolbarSearch() {
         toolbar.setVisibility(View.GONE);
         searchToolbar.setVisibility(View.VISIBLE);
-        etSearch.requestFocus();
-        InputMethodManager keyboard = (InputMethodManager)
-                getSystemService(Context.INPUT_METHOD_SERVICE);
-        if(keyboard!=null) {
-            keyboard.showSoftInput(etSearch, 0);
-        }
+        showKeyboard(this, etSearch);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
@@ -197,6 +178,8 @@ public class DeliveryDrawerActivity extends BaseActivity
                 return openFragment(new DeliveredFragment());
             case R.id.nav_curiers:
                 return openFragment(new CuriersFragment());
+            case R.id.nav_addresses:
+                return openFragment(new ContactFragment());
             case R.id.nav_new_order:
                 startActivity(new Intent(this, NewOrderActivity.class));
                 return true;
@@ -209,7 +192,8 @@ public class DeliveryDrawerActivity extends BaseActivity
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
 
-        baseFragment = fragment;
+
+        baseFragment = new WeakReference<>(fragment);
         return true;
     }
 

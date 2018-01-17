@@ -20,10 +20,12 @@ import ru.savchenko.andrey.deliveryman.activities.draw.di.MainComponent;
 import ru.savchenko.andrey.deliveryman.activities.neworder.NewOrderActivity;
 import ru.savchenko.andrey.deliveryman.activities.neworder.di.NewOrderComponent;
 import ru.savchenko.andrey.deliveryman.di.base.ComponentBuilder;
-import ru.savchenko.andrey.deliveryman.dialogs.oneorder.OneOrderActivity;
-import ru.savchenko.andrey.deliveryman.dialogs.oneorder.di.OneOrderComponent;
+import ru.savchenko.andrey.deliveryman.activities.oneorder.OneOrderActivity;
+import ru.savchenko.andrey.deliveryman.activities.oneorder.di.OneOrderComponent;
 import ru.savchenko.andrey.deliveryman.fragments.actual.ActualFragment;
 import ru.savchenko.andrey.deliveryman.fragments.actual.di.ActualComponent;
+import ru.savchenko.andrey.deliveryman.fragments.contacts.ContactFragment;
+import ru.savchenko.andrey.deliveryman.fragments.contacts.di.ContactComponent;
 import ru.savchenko.andrey.deliveryman.fragments.curiers.CuriersFragment;
 import ru.savchenko.andrey.deliveryman.fragments.curiers.di.CuriersComponent;
 import ru.savchenko.andrey.deliveryman.fragments.delivered.DeliveredFragment;
@@ -43,6 +45,7 @@ import ru.savchenko.andrey.deliveryman.network.DeliveryNetworkService;
     DeliveredComponent.class,
     CuriersComponent.class,
     ProfileUserComponent.class,
+    ContactComponent.class,
 })
 class AppModule {
     private static final String DATE_PATTERN = "yyyy-MM-dd'T'HH:mm:ss";
@@ -52,6 +55,13 @@ class AppModule {
     @IntoMap
     @ClassKey(DeliveryDrawerActivity.class)
     ComponentBuilder provideMain(MainComponent.Builder builder){
+        return builder;
+    }
+
+    @Provides
+    @IntoMap
+    @ClassKey(ContactFragment.class)
+    ComponentBuilder provideContact(ContactComponent.Builder builder){
         return builder;
     }
 

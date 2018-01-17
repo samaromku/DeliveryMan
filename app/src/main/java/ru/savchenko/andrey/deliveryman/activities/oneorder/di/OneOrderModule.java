@@ -1,11 +1,11 @@
-package ru.savchenko.andrey.deliveryman.dialogs.oneorder.di;
+package ru.savchenko.andrey.deliveryman.activities.oneorder.di;
 
 import dagger.Module;
 import dagger.Provides;
 import ru.savchenko.andrey.deliveryman.di.base.BaseModule;
-import ru.savchenko.andrey.deliveryman.dialogs.oneorder.OneOrderView;
-import ru.savchenko.andrey.deliveryman.dialogs.oneorder.OneOrderPresenter;
-import ru.savchenko.andrey.deliveryman.dialogs.oneorder.OneOrderInterActor;
+import ru.savchenko.andrey.deliveryman.activities.oneorder.OneOrderView;
+import ru.savchenko.andrey.deliveryman.activities.oneorder.OneOrderPresenter;
+import ru.savchenko.andrey.deliveryman.activities.oneorder.OneOrderInterActor;
 
 @Module
 public class OneOrderModule implements BaseModule {

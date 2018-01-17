@@ -14,6 +14,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.savchenko.andrey.deliveryman.App;
@@ -32,6 +33,7 @@ public class DeliveredFragment extends BaseFragment implements DeliveredView, On
 
     @BindView(R.id.rvOrder)
     RecyclerView rvOrder;
+    @BindString(R.string.delivered_orders)String delivered;
 
     @Nullable
     @Override
@@ -46,7 +48,7 @@ public class DeliveredFragment extends BaseFragment implements DeliveredView, On
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
-        setToolbarTitle("Доставленные");
+        setToolbarTitle(delivered);
         presenter.getListFroAdapter();
     }
 

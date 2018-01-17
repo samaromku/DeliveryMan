@@ -9,6 +9,7 @@
     <string name="profile">Профиль</string>
     <string name="current_orders">Текущие заказы</string>
     <string name="delivered_orders">Доставленные заказы</string>
+    <string name="couriers">Курьеры</string>
     <string name="reviews">Отзывы</string>
     <string name="post">Должность</string>
     <string name="made_per_day">За день</string>
@@ -20,11 +21,22 @@
     <string name="title_activity_test_main">TestMain</string>
     <string name="new_order">Новый заказ</string>
     <string name="address">Адрес</string>
+    <string name="creation_date">Дата создания</string>
+    <string name="deadline">Крайний срок</string>
+    <string name="way">Расстояние</string>
+    <string name="rating">Рейтинг</string>
+    <string name="comment">Комментарий</string>
+    <string name="courier_have">У курьера</string>
+    <string name="delivered">Доставлен</string>
     <string name="description">Описание</string>
     <string name="title">Название</string>
     <string name="curiers">Курьеры</string>
     <string name="name">Имя</string>
     <string name="status">Статус</string>
+    <string name="phone">Телефон</string>
+    <string name="per_day">Сделано за день</string>
+    <string name="orders_on_hand">Заказов на руках</string>
     <string name="filter">Фильтр</string>
     <string name="search">Поиск</string>
+    <string name="addresses">Адреса/контакты</string>
 </resources>

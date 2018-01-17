@@ -1,4 +1,4 @@
-package ru.savchenko.andrey.deliveryman.dialogs.oneorder;
+package ru.savchenko.andrey.deliveryman.activities.oneorder;
 
 public class OneOrderPresenter {
     private static final String TAG = OneOrderPresenter.class.getSimpleName();

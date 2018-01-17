@@ -62,6 +62,10 @@
                 layout="@layout/cardview" />
 
             <include
+                android:id="@+id/card_view_phone"
+                layout="@layout/cardview" />
+
+            <include
                 android:id="@+id/card_view_post"
                 layout="@layout/cardview" />
 
