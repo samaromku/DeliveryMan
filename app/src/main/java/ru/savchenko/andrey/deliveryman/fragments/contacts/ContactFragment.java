@@ -56,12 +56,12 @@ public class ContactFragment extends BaseFragment implements ContactView {
 
     @Override
     public void setListToAdapter(List<Contact> listToAdapter) {
-        ContactAdapter adapter = new ContactAdapter();
+        ContactAdapter adapter = new ContactAdapter(getActivity());
         adapter.setDataList(listToAdapter);
         adapter.setClickListener(position -> {
             Log.i(TAG, "setListToAdapter: " + position);
         });
-        rvAddress.setLayoutManager(new GridLayoutManager(getActivity(), 3));
+        rvAddress.setLayoutManager(new GridLayoutManager(getActivity(), 5));
         rvAddress.setAdapter(adapter);
     }
 }

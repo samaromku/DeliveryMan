@@ -9,9 +9,12 @@
     card_view:cardPreventCornerOverlap="false">
 
     <LinearLayout
+        android:id="@+id/llContact"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="?android:attr/selectableItemBackground"
+        android:padding="8dp">
 
         <TextView
             android:id="@+id/tvName"

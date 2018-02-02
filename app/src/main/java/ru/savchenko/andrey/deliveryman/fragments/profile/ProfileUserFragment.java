@@ -1,5 +1,8 @@
 package ru.savchenko.andrey.deliveryman.fragments.profile;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
@@ -20,9 +23,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 
 import com.squareup.picasso.Picasso;
+
+import org.w3c.dom.Text;
 
 import javax.inject.Inject;
 
@@ -44,6 +50,7 @@ public class ProfileUserFragment extends BaseFragment implements ProfileUserView
     @BindView(R.id.card_view_middle_time)View card_view_middle_time;
     @BindView(R.id.card_view_phone)View cardViewPhone;
     @BindView(R.id.btnEditPhoto)FloatingActionButton fabEdit;
+
     @BindString(R.string.name) String name;
     @BindString(R.string.status) String status;
     @BindString(R.string.phone) String phone;
@@ -85,6 +92,7 @@ public class ProfileUserFragment extends BaseFragment implements ProfileUserView
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
         setToolbarTitle(profile);
+        setHasOptionsMenu(false);
         Picasso.with(getActivity())
                 .load("http://i.imgur.com/0JTbWMn.jpg")
                 .into(ivPhoto);
@@ -99,7 +107,6 @@ public class ProfileUserFragment extends BaseFragment implements ProfileUserView
         etName = cardViewName.findViewById(R.id.tvValue);
         etStatus = cardViewStatus.findViewById(R.id.tvValue);
         etPhone = cardViewPhone.findViewById(R.id.tvValue);
-
     }
 
     @Override
